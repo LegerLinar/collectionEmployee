@@ -1,14 +1,16 @@
 package com.example.collectionEmployee.controllerEmployee;
 
+import com.example.collectionEmployee.Employee.Employee;
 import com.example.collectionEmployee.exceptions.EmployeeAlreadyAddedException;
 import com.example.collectionEmployee.exceptions.EmployeeNotFoundException;
 import com.example.collectionEmployee.exceptions.EmployeeStorageIsFullException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+
 @RequestMapping("/employee")
 public class ControllerEmployee {
     private final EmployeeService employeeService;
@@ -18,46 +20,35 @@ public class ControllerEmployee {
     }
 
     @GetMapping
+
     public String readme() {
         return "Добро пожаловать на страницу управления списком сотрудников";
     }
 
     @GetMapping(path = "/add")
-    public String addEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        try {
-            employeeService.addEmployee(firstName, lastName);
-        } catch (EmployeeAlreadyAddedException e) {
-            return e.getMessage();
-        } catch (EmployeeStorageIsFullException e) {
-            return e.getMessage();
-        }
-        return "Сотрудник " + firstName + " " + lastName + " добавлен";
+    public Employee addEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+        return employeeService.addEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "/find")
-    public String getEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        String employee = "";
-        try {
-            employee = "" + employeeService.getEmployee(firstName, lastName);
-        } catch (EmployeeNotFoundException e) {
-            return e.getMessage();
-        }
-        return employee;
+    public Employee getEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+        return employeeService.getEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "/remove")
-    public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        try {
-            employeeService.removeEmployee(firstName, lastName);
-        } catch (EmployeeNotFoundException e) {
-            return e.getMessage();
-        }
-        return "Сотрудник" + firstName + " " + lastName + " удалён";
+    public Employee removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+        return employeeService.removeEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "/employeeList")
-    public String getEmployeeList() {
+    public List getEmployeeList() {
         return employeeService.getEmployeeList();
     }
+
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ExceptionHandler({EmployeeAlreadyAddedException.class})
+//    public void handleEmployeeAlreadyAdded(EmployeeAlreadyAddedException e){
+//        e.getMessage();
+//    }
 
 }

@@ -1,13 +1,17 @@
 package com.example.collectionEmployee.controllerEmployee;
 
+import ch.qos.logback.core.joran.spi.ElementPath;
 import com.example.collectionEmployee.Employee.Employee;
 
-public interface EmployeeService {
-    void addEmployee(String firstName, String lastName);
+import java.util.List;
 
-    void removeEmployee(String firstName, String lastName);
+public interface EmployeeService {
+
+    Employee addEmployee(String firstName, String lastName);
+
+    Employee removeEmployee(String firstName, String lastName);
 
     Employee getEmployee(String firstName, String lastName);
 
-    String getEmployeeList();
+    List getEmployeeList();
 }

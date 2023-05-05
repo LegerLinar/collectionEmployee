@@ -4,6 +4,7 @@ import com.example.collectionEmployee.Employee.Employee;
 import com.example.collectionEmployee.exceptions.EmployeeAlreadyAddedException;
 import com.example.collectionEmployee.exceptions.EmployeeNotFoundException;
 import com.example.collectionEmployee.exceptions.EmployeeStorageIsFullException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,8 +16,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final int LIST_CAPACITY = 5;
     List<Employee> employeeList = new ArrayList<>(LIST_CAPACITY);
 
+
     @Override
-    public void addEmployee(String firstName, String lastName) {
+    public Employee addEmployee(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
         if (employeeList.size() > LIST_CAPACITY) {
             throw new EmployeeStorageIsFullException("Лимит количества сотрудников в отделе превышен");
@@ -25,16 +27,18 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new EmployeeAlreadyAddedException("Указанный сотрудник уже есть в отделе");
         }
         employeeList.add(employee);
+       return employee;
 
 
     }
 
     @Override
-    public void removeEmployee(String firstName, String lastName) {
+    public Employee removeEmployee(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
         if (!employeeList.remove(employee)) {
             throw new EmployeeNotFoundException("Сотрудник не найден");
         }
+        return employee;
     }
 
     @Override
@@ -46,7 +50,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeList.get(employeeList.indexOf(employee));
     }
 
-    public String getEmployeeList(){
-        return employeeList.toString();
+    public List getEmployeeList(){
+        return employeeList;
     }
+
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ExceptionHandler({EmployeeAlreadyAddedException.class})
+//        public void handleEmployeeAlreadyAddedException(EmployeeAlreadyAddedException e){
+//            e.getMessage();
+//    }
 }
