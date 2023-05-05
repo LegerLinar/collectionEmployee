@@ -1,10 +1,6 @@
 package com.example.collectionEmployee.controllerEmployee;
 
 import com.example.collectionEmployee.Employee.Employee;
-import com.example.collectionEmployee.exceptions.EmployeeAlreadyAddedException;
-import com.example.collectionEmployee.exceptions.EmployeeNotFoundException;
-import com.example.collectionEmployee.exceptions.EmployeeStorageIsFullException;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,10 +41,5 @@ public class ControllerEmployee {
         return employeeService.getEmployeeList();
     }
 
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler({EmployeeAlreadyAddedException.class})
-//    public void handleEmployeeAlreadyAdded(EmployeeAlreadyAddedException e){
-//        e.getMessage();
-//    }
 
 }

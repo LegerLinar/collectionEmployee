@@ -4,7 +4,6 @@ import com.example.collectionEmployee.Employee.Employee;
 import com.example.collectionEmployee.exceptions.EmployeeAlreadyAddedException;
 import com.example.collectionEmployee.exceptions.EmployeeNotFoundException;
 import com.example.collectionEmployee.exceptions.EmployeeStorageIsFullException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -54,9 +53,4 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeList;
     }
 
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler({EmployeeAlreadyAddedException.class})
-//        public void handleEmployeeAlreadyAddedException(EmployeeAlreadyAddedException e){
-//            e.getMessage();
-//    }
 }
